@@ -1,6 +1,8 @@
+//
+//  ELECTRON INIT AND WINDOW CREATION
+//
+
 const { app, BrowserWindow } = require('electron')
-var dgram = require('dgram');
-var port = 44044;
 
 function createWindow () {
   // Create the browser window.
@@ -15,8 +17,17 @@ function createWindow () {
   // and load the index.html of the app.
   win.loadFile('index.html');
 }
-var win = createWindow();
 
+app.whenReady().then(createWindow)
+
+
+
+//
+// UDP DATAGRAM INIT AND LISTENER
+// 
+
+var dgram = require('dgram');
+var port = 44044;
 socket = dgram.createSocket('udp4');
 
 socket.on('message', function (msg, info){
@@ -37,8 +48,6 @@ socket.on('listening', function(){
 socket.bind(port);
 
 
-
-app.whenReady().then(win)
 
 
 
